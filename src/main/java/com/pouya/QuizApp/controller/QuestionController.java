@@ -3,9 +3,8 @@ package com.pouya.QuizApp.controller;
 import com.pouya.QuizApp.Model.Question;
 import com.pouya.QuizApp.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -16,12 +15,19 @@ public class QuestionController {
     @Autowired
     QuestionService questionService;
     @GetMapping("AllQuestions")
-    public List<Question> getAllQuestions(){
+    public ResponseEntity<List<Question>> getAllQuestions(){
 
-        System.out.println("heeerreeeeee");
-        List<Question> test = questionService.getAllQuestions();
-        System.out.println("*************"+test);
-        return test;
+        return  questionService.getAllQuestions();
+    }
+
+    @GetMapping("category/{cat}")
+    public ResponseEntity<List<Question>> getQusetionByCategory(@PathVariable("cat") String category){
+        return questionService.findByCategory(category);
+    }
+    @PostMapping("add")
+    public ResponseEntity<String> addQuestion(@RequestBody Question question){
+
+        return questionService.addQuestion(question);
     }
 
 

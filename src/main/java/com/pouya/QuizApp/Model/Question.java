@@ -1,12 +1,19 @@
 package com.pouya.QuizApp.Model;
-//
+
 //import jakarta.persistence.*;
+//import lombok.AllArgsConstructor;
 //import lombok.Data;
+//import lombok.NoArgsConstructor;
+//import org.springframework.data.jpa.repository.Query;
+//
+//import java.util.List;
 //
 //
 //@Data
 //@Entity
 //@Table(name="question")
+//@NoArgsConstructor
+//@AllArgsConstructor
 //
 //public class Question {
 //    @Id
@@ -20,6 +27,7 @@ package com.pouya.QuizApp.Model;
 //    private String option4;
 //    private String questionTitle;
 //    private String rightAnswer;
+//
 //}
 
 import jakarta.persistence.Entity;
@@ -37,7 +45,7 @@ public class Question {
     private Integer id;
 
     private String category;
-    private String difficultLevel;
+    private String difficultyLevel;
     private String option1;
     private String option2;
     private String option3;
@@ -63,12 +71,12 @@ public class Question {
         this.category = category;
     }
 
-    public String getDifficultLevel() {
-        return difficultLevel;
+    public String getDifficulytLevel() {
+        return difficultyLevel;
     }
 
-    public void setDifficultLevel(String difficultLevel) {
-        this.difficultLevel = difficultLevel;
+    public void setDifficultyLevel(String difficultLevel) {
+        this.difficultyLevel = difficultLevel;
     }
 
     public String getOption1() {
