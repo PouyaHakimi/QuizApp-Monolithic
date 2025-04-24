@@ -1,13 +1,14 @@
 package com.pouya.QuizApp.controller;
 
+import com.pouya.QuizApp.Model.Question;
+import com.pouya.QuizApp.Model.QuestionWraper;
 import com.pouya.QuizApp.service.QuizService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("quiz")
@@ -19,6 +20,9 @@ public class QuizController {
     public ResponseEntity<String> createQuiz(@RequestParam String category,@RequestParam int numQ ,@RequestParam String tittle){
         return quizService.createQuiz(category,numQ,tittle);
     }
-
+    @GetMapping("get/{id}")
+    public ResponseEntity<List<QuestionWraper>> getUserQuestion(@PathVariable Integer id){
+        return quizService.getUserQuestion(id);
+    }
 
 }
