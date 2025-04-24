@@ -1,6 +1,7 @@
 package com.pouya.QuizApp.controller;
 
 import com.pouya.QuizApp.Model.Question;
+import com.pouya.QuizApp.Model.QuestionAnswer;
 import com.pouya.QuizApp.Model.QuestionWraper;
 import com.pouya.QuizApp.service.QuizService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,10 @@ public class QuizController {
     @GetMapping("get/{id}")
     public ResponseEntity<List<QuestionWraper>> getUserQuestion(@PathVariable Integer id){
         return quizService.getUserQuestion(id);
+    }
+    @PostMapping("submit/{id}")
+    public ResponseEntity<Integer> QuizResult(@PathVariable Integer id,@RequestBody List<QuestionAnswer> response){
+        return quizService.QuizResult(id,response);
     }
 
 }

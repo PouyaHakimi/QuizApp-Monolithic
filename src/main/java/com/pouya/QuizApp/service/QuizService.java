@@ -3,6 +3,7 @@ package com.pouya.QuizApp.service;
 import com.pouya.QuizApp.DAO.QuestionDao;
 import com.pouya.QuizApp.DAO.QuizDao;
 import com.pouya.QuizApp.Model.Question;
+import com.pouya.QuizApp.Model.QuestionAnswer;
 import com.pouya.QuizApp.Model.QuestionWraper;
 import com.pouya.QuizApp.Model.Quiz;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,5 +47,19 @@ public class QuizService {
 
         return new ResponseEntity<>(userQuestions,HttpStatus.OK);
 
+    }
+
+    public ResponseEntity<Integer> QuizResult(Integer id,List<QuestionAnswer> response) {
+        Optional<Quiz> quiz =quizDao.findById(id);
+        List<Question> questionsFromDB = quiz.get().getQuestions();
+        int right = 0;
+        int i = 0;
+        for(QuestionAnswer q :response) {
+
+            if( q.getAnswer().equals(questionsFromDB.get(i).getRightAnswer()))
+                right++;
+        i++;
+        }
+        return new ResponseEntity<>(right,HttpStatus.OK);
     }
 }
