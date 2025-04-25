@@ -50,16 +50,31 @@ public class QuizService {
     }
 
     public ResponseEntity<Integer> QuizResult(Integer id,List<QuestionAnswer> response) {
+
+
         Optional<Quiz> quiz =quizDao.findById(id);
+        if (!quiz.isPresent()) {
+            return new ResponseEntity<>(0, HttpStatus.NOT_FOUND);
+        }
         List<Question> questionsFromDB = quiz.get().getQuestions();
+
+        if (response.size() != questionsFromDB.size()) {
+            return new ResponseEntity<>(0, HttpStatus.BAD_REQUEST);
+        }
         int right = 0;
         int i = 0;
+        try {
         for(QuestionAnswer q :response) {
 
             if( q.getAnswer().equals(questionsFromDB.get(i).getRightAnswer()))
                 right++;
         i++;
         }
-        return new ResponseEntity<>(right,HttpStatus.OK);
+
+            return new ResponseEntity<>(right, HttpStatus.OK);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return new ResponseEntity<>( 0 ,HttpStatus.BAD_REQUEST);
     }
 }
